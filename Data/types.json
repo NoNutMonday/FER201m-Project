@@ -1,0 +1,17 @@
+{
+    "types": [
+      {
+        "id": 1,
+        "type": "Apartment"
+      },
+      {
+        "id": 2,
+        "type": "House"
+      },
+      {
+        "id": 3,
+        "type": "Condo"
+      }
+    ]
+  }
+  
