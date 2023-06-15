@@ -80,5 +80,75 @@
                 "images/property-5/image-2.jpg"
             ]
         }
+    ],
+    "roles": [
+        {
+            "id": 1,
+            "role": "admin"
+        },
+        {
+            "id": 2,
+            "role": "customer"
+        },
+        {
+            "id": 3,
+            "role": "owner"
+        }
+    ],
+    "types": [
+        {
+            "id": 1,
+            "type": "Apartment"
+        },
+        {
+            "id": 2,
+            "type": "House"
+        },
+        {
+            "id": 3,
+            "type": "Condo"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "username": "johndoe",
+            "password": "password1",
+            "fullname": "John Doe",
+            "phone_number": 15551234567,
+            "role_id": 2
+        },
+        {
+            "id": 2,
+            "username": "janesmith",
+            "password": "password2",
+            "fullname": "Jane Smith",
+            "phone_number": 15559876543,
+            "role_id": 2
+        },
+        {
+            "id": 3,
+            "username": "michaelbrown",
+            "password": "password3",
+            "fullname": "Michael Brown",
+            "phone_number": 15555551212,
+            "role_id": 3
+        },
+        {
+            "id": 4,
+            "username": "sarahjohnson",
+            "password": "password4",
+            "fullname": "Sarah Johnson",
+            "phone_number": 15552223344,
+            "role_id": 3
+        },
+        {
+            "id": 5,
+            "username": "admin",
+            "password": "password5",
+            "fullname": "Admin User",
+            "phone_number": 15555555555,
+            "role_id": 1
+        }
     ]
 }
