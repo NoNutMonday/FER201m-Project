@@ -26,29 +26,10 @@ const removeToken = () => {
 }
 
 function App() {
-
-    const [token, setTokenState] = useState(getToken()) 
-
     return (
-        <QueryClientProvider client={queryClient}>
-            <AppContext.Provider value={{ getToken, setToken, removeToken, token, setTokenState  }}>
-                <div className="page-wrapper">
+        <></>
+    )
 
-                    <div className="preloader"></div>
-                    <Header />
-
-                    <Router />
-
-                    <Footer />
-                    
-
-                </div>
-
-            </AppContext.Provider>
-
-        </QueryClientProvider>
-
-    );
 }
 
 export default App;
