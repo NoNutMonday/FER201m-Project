@@ -23,6 +23,18 @@ export const checkUserName = (username, message) => {
     }
 }
 
+export const checkPasswordEmpty = (password, message) => {
+    if (check(password?.value)) {
+        password.style.borderColor = 'red';
+        message.innerHTML = 'Password is required';
+        message.classList.remove('d-none');
+        return false;
+    } else {
+        password.style.borderColor = 'green';
+        return true;
+    }
+}
+
 export const checkPassword = (password, message) => {
     if (check(password?.value)) {
         password.style.borderColor = 'red';
@@ -157,6 +169,20 @@ export const checkEmailExist = (database = [], email, message) => {
     return true;
 }
 
+export const checkEmailExistForUpdate = (database = [], email, oldEmail, message) => {
+    if (email.value === oldEmail) {
+        return true;
+    } else {
+        const accountExist = database?.find(account => account.email.toLowerCase().includes(email.value.toLowerCase()))
+        if (accountExist) {
+            email.style.borderColor = 'red';
+            message.innerHTML = 'Email Is Exist !';
+            message.classList.remove('d-none');
+            return false;
+        }
+    }
+}
+
 export const checkUserNameExist = (database = [], username, message) => {
     const accountExist = database.find(account => account.userName.toLowerCase().includes(username.value.toLowerCase()))
     if (accountExist) {
@@ -197,7 +223,7 @@ export const checkOldPassword = (oldPassword, enterPassword, message) => {
 }
 
 export const checkNewPassword = (oldPassword, newPassword, message) => {
-    if(checkPassword(newPassword, message)){
+    if (checkPassword(newPassword, message)) {
         if (oldPassword === md5(newPassword.value)) {
             newPassword.style.borderColor = 'red';
             message.innerHTML = 'New Password Must Be Different Old Password';
@@ -209,15 +235,15 @@ export const checkNewPassword = (oldPassword, newPassword, message) => {
             message.classList.add('d-none');
             return true;
         }
-    }else {
+    } else {
         return false;
     }
 }
 
 export const checkConfirmNewPassword = (newPassword, confirmNewPassword, message) => {
-    if(checkConfirmPassword(newPassword, confirmNewPassword, message)){
+    if (checkConfirmPassword(newPassword, confirmNewPassword, message)) {
         return true;
-    }else {
+    } else {
         return false;
     }
 }

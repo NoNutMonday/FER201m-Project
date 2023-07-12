@@ -4,7 +4,8 @@ const initialState = {
     reviews: [],
     page: 1,
     limit: 2,
-    lastedReview: []
+    lastedReview: [],
+    totalPage: 0
 }
 
 export const reviewSlice = createSlice({
@@ -25,11 +26,16 @@ export const reviewSlice = createSlice({
 
         setLastedReview: (state, actions) => {
             state.lastedReview = actions.payload.lastedReview
+        },
+
+        setTotalPage: (state, actions) => {
+            state.totalPage = actions.payload.totalPage
         }
+
 
     }
 })
 
-export const { setReview, nextPage, loadMore, setLastedReview } = reviewSlice.actions
+export const { setReview, nextPage, loadMore, setLastedReview, setTotalPage } = reviewSlice.actions
 
 export default reviewSlice.reducer

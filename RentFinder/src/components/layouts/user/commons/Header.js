@@ -1,11 +1,14 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { NavLink } from 'react-router-dom';
-import { AppContext } from '../../../../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
+import { removeToken } from '../../../../core/redux/auth';
 
 export default function Header() {
 
-    const { token, removeToken, setTokenState } = useContext(AppContext)
+    const state = useSelector(state => state.auth)
+
+    const dispatch = useDispatch()
 
     const searchRef = useRef(null)
 
@@ -27,17 +30,17 @@ export default function Header() {
                             {/* Info List */}
                             <ul className="info-list">
                                 {
-                                    token ? (
+                                    state.token ? (
                                         <>
                                             <li className='nav-item'>
                                                 <NavLink
-                                                    to="/profiles"
+                                                    to="/profile"
                                                     className={({ isActive, isPending }) =>
                                                         isPending ? "pending" : isActive ? "active" : ""
                                                     }
-                                                    
+
                                                 >
-                                                    Hello, {token?.userName}
+                                                    Hello, {state?.token?.userName}
                                                 </NavLink>
                                             </li>
                                             <li className='nav-item'>
@@ -46,7 +49,7 @@ export default function Header() {
                                                     className={({ isActive, isPending }) =>
                                                         isPending ? "pending" : isActive ? "active" : ""
                                                     }
-                                                    
+
                                                 >
                                                     Change Password
                                                 </NavLink>
@@ -57,16 +60,30 @@ export default function Header() {
                                                     className={({ isActive, isPending }) =>
                                                         isPending ? "pending" : isActive ? "active" : ""
                                                     }
-                                                    
+
                                                 >
                                                     Wish List
                                                 </NavLink>
                                             </li>
+                                            {
+                                                state?.token?.role === 1 ? (
+                                                    <li className='nav-item'>
+                                                        <NavLink
+                                                            to="/admin"
+                                                            className={({ isActive, isPending }) =>
+                                                                isPending ? "pending" : isActive ? "active" : ""
+                                                            }
+
+                                                        >
+                                                            Dashboard
+                                                        </NavLink>
+                                                    </li>
+                                                ) : null
+                                            }
                                             <li className='nav-item'>
                                                 <NavLink
                                                     onClick={() => {
-                                                        removeToken()
-                                                        setTokenState(undefined)
+                                                        dispatch(removeToken())
                                                     }}
                                                     className={({ isActive, isPending }) =>
                                                         isPending ? "pending" : isActive ? "active" : ""
@@ -132,7 +149,7 @@ export default function Header() {
                                             isPending ? "pending" : isActive ? "active" : ""
                                         }
                                     >
-                                        <img src="images/logo-2.png" alt="" />
+                                       <h2 className='text-warning'>RentFinder</h2>
                                     </NavLink>
                                 </div>
                             </div>
@@ -162,18 +179,12 @@ export default function Header() {
                                                 </NavLink>
                                             </li>
 
-                                            <li className="dropdown"><a href="services-dark.html">Services</a>
+                                            <li className="dropdown"><a>Services</a>
                                                 <ul>
-                                                    <li><a href="services-dark.html">Services Layout 01</a></li>
-                                                    <li><a href="services-light.html">Services Layout 02</a></li>
-                                                    <li><a href="residental-interior.html">Residential Interior</a></li>
-                                                    <li><a href="commercial-interior.html">Commercial Interior</a></li>
-                                                    <li><a href="office-interior.html">Office Design</a></li>
-                                                    <li><a href="hospitality-design.html">Hospitality Design</a></li>
-                                                    <li><a href="modern-furniture.html">Modern Furniture</a></li>
-                                                    <li><a href="modular-kitchen.html">Modular Kitchen</a></li>
-                                                    <li><a href="wardrobe.html">Wardrobe</a></li>
-                                                    <li><a href="false-celling-design.html">False Celling Design</a></li>
+                                                    <li>
+                                                        <Link to={`motel`}>Motel</Link>
+                                                    </li>
+
                                                 </ul>
                                             </li>
 

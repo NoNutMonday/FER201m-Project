@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    token: null
+    token: null,
+    accounts: [],
 }
 
 export const authSlice = createSlice({
@@ -15,10 +16,20 @@ export const authSlice = createSlice({
         },
         removeToken: (state) => {
             state.token = null
+        },
+        
+        setAccounts: (state, actions) => {
+            state.accounts = actions.payload.accounts
+        },
+
+        updateAccount: (state, actions) => {
+            const { id, status } = actions.payload
+            const index = state.accounts.findIndex(item => item.id === id)
+            state.accounts[index].status = status
         }
     }
 })
 
-export const { setToken, removeToken } = authSlice.actions
+export const { setToken, removeToken, setAccounts } = authSlice.actions
 
 export default authSlice.reducer

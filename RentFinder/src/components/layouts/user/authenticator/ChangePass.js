@@ -1,6 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../../../../App";
-import { useContext, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useRef } from "react";
 import { checkConfirmNewPassword, checkNewPassword, checkOldPassword } from "../commons/validation";
 import { toast } from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
@@ -10,7 +9,6 @@ import md5 from "md5";
 export default function ChangePass() {
     const queryClient = useQueryClient()
 
-    const { token } = useContext(AppContext)
 
     const oldPassRef = useRef();
     const newPassRef = useRef();
@@ -21,18 +19,18 @@ export default function ChangePass() {
     const messageComfirmPassRef = useRef();
 
     const validation = () => {
-        const oldPass = oldPassRef?.current
-        const newPass = newPassRef?.current
-        const comfirmPass = comfirmPassRef?.current
-        const messageOldPass = messageOldPassRef?.current
-        const messageNewPass = messageNewPassRef?.current
-        const messageComfirmPass = messageComfirmPassRef?.current
+        // const oldPass = oldPassRef?.current
+        // const newPass = newPassRef?.current
+        // const comfirmPass = comfirmPassRef?.current
+        // const messageOldPass = messageOldPassRef?.current
+        // const messageNewPass = messageNewPassRef?.current
+        // const messageComfirmPass = messageComfirmPassRef?.current
 
-        const flag1 = checkOldPassword(token?.password, oldPass, messageOldPass)
-        const flag2 = checkNewPassword(token?.password, newPass, messageNewPass)
-        const flag3 = checkConfirmNewPassword(newPass, comfirmPass, messageComfirmPass)
+        // const flag1 = checkOldPassword(token?.password, oldPass, messageOldPass)
+        // const flag2 = checkNewPassword(token?.password, newPass, messageNewPass)
+        // const flag3 = checkConfirmNewPassword(newPass, comfirmPass, messageComfirmPass)
 
-        return flag1 && flag2 && flag3
+        // return flag1 && flag2 && flag3
     }
 
     const mutation = useMutation(account => {
@@ -57,21 +55,21 @@ export default function ChangePass() {
     })
 
     const handelChangePass = () => {
-        if (validation()) {
-            const password = md5(newPassRef?.current?.value)
-            const account = {
-                ...token,
-                password: password,
-            }
+        // if (validation()) {
+        //     const password = md5(newPassRef?.current?.value)
+        //     const account = {
+        //         ...token,
+        //         password: password,
+        //     }
 
-            mutation.mutate(account)
-        }
+        //     mutation.mutate(account)
+        // }
     }
 
     return (
         <>
             {
-                token ? (
+                true ? (
                     <>
                         <section className="page-title" style={{ backgroundImage: 'url(images/background/2.jpg)' }}>
                             <div className="auto-container">
