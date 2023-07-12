@@ -1,27 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import { AppContext } from "../../../../App";
-import { checkPassword, checkUserName } from "../commons/validation";
+import { checkPassword, checkPasswordEmpty, checkUserName } from "../commons/validation";
 
 import md5 from "md5";
 
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import { useQuery } from "react-query";
 import { toast } from 'react-hot-toast'
-
-const API_URL = 'http://localhost:9999';
+import { useDispatch, useSelector } from "react-redux";
+import { setToken } from "../../../../core/redux/auth";
 
 export default function Login() {
 
-    const { setTokenState, setToken } = useContext(AppContext)
+    const dispatch = useDispatch()
 
     const navigate = useNavigate();
 
-    const query = useQuery('accounts', () => fetch(`${API_URL}/accounts`).then(res => res.json()), {
-        cacheTime: 1000 * 60 * 60, // 1 hou
-        staleTime: 1000 * 60 * 60, // 1 hou
-        refetchInterval: false
-    })
+    const state = useSelector(state => state.auth.accounts)
 
     const usernameRef = useRef();
     const passwordRef = useRef();
@@ -35,7 +30,7 @@ export default function Login() {
         const messageUsername = messageUsernameRef?.current
         const messagePassword = messagePasswordRef?.current
         const flag1 = checkUserName(username, messageUsername)
-        const flag2 = checkPassword(password, messagePassword)
+        const flag2 = checkPasswordEmpty(password, messagePassword)
         return flag1 && flag2
     }
 
@@ -44,26 +39,25 @@ export default function Login() {
             const username = usernameRef?.current?.value
             const password = md5(passwordRef?.current?.value)
 
-            if (query.isSuccess) {
-                const account = query?.data?.find(account => account.userName.toString() === username.toString()
-                    && account.password.toString() === password.toString())
-                if (account) {
-                    setToken(account)
-                    toast.success('Login Success !')
-                    setTimeout(() => {
-                        setTokenState(account)
-                        navigate("/")
-                    }, 1500)
-                } else {
-                    toast.error('UserName Or Password Is Wrong !')
-                }
+            const account = state?.find(account => account.userName.toString() === username.toString()
+                && account.password.toString() === password.toString())
+            console.log(state)
+
+            console.log(account)
+            console.log(username)
+            console.log(password)
+
+            if (account) {
+                dispatch(setToken({ token: account }))
+                toast.success('Login Success !')
+                setTimeout(() => {
+                    navigate("/")
+                }, 1500)
+            } else {
+                toast.error('UserName Or Password Is Wrong !')
             }
 
-            if (query.isError) {
-                toast.error('Something wrong, Try Again !')
-            }
         }
-
     }
 
     return (

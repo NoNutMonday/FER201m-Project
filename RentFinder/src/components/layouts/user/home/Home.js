@@ -12,7 +12,7 @@ export default function Home() {
     const dispatch = useDispatch()
 
     const lastedReview = useQuery(['lastedReview']
-        , () => fetch('https://jsonplaceholder.typicode.com/posts?_sort=id&_order=desc&_page=1&_limit=3')
+        , () => fetch('http://localhost:9999/reviews?_sort=id&_order=desc&_page=1&_limit=3')
             .then(res => res.json())
             .then(data => {
                 dispatch(setLastedReview({ lastedReview: data }))
@@ -25,7 +25,7 @@ export default function Home() {
     )
 
     const latestMotel = useQuery(['lastestsMotel']
-        , () => fetch('https://jsonplaceholder.typicode.com/posts?_limit=7')
+        , () => fetch('http://localhost:9999/motels?_limit=7')
             .then(res => res.json())
             .then(data => {
                 dispatch(setLatests({ latests: data }))
@@ -105,17 +105,17 @@ export default function Home() {
                         <div className="filters clearfix">
                             <ul className="filter-tabs filter-btns text-center clearfix">
                                 <li className="active filter" data-role="button" data-filter=".all">All</li>
-                                <li className="filter" data-role="button" data-filter=".2">Capacity 2</li>
-                                <li className="filter" data-role="button" data-filter=".3">Capacity 3</li>
-                                <li className="filter" data-role="button" data-filter=".4">Price Less Than 2.000.000</li>
+                                <li className="filter" data-role="button" data-filter=".capacity2">Capacity 2</li>
+                                <li className="filter" data-role="button" data-filter=".capacity3">Capacity 3</li>
+                                <li className="filter" data-role="button" data-filter=".lessthan">Price Less Than 2.000.000</li>
                             </ul>
                         </div>
                         <div className="items-container row clearfix">
                             {
                                 latests?.map((item, index) => {
-                                    if (index == 0) {
+                                    if (index === 0) {
                                         return (
-                                            <div key={item.id} className={`gallery-item large-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''} `}>
+                                            <div key={item.id} className={`gallery-item large-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''} `}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -123,9 +123,9 @@ export default function Home() {
                                                 />
                                             </div>
                                         )
-                                    } else if (index == 1) {
+                                    } else if (index === 1) {
                                         return (
-                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''} `}>
+                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''} `}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -133,9 +133,9 @@ export default function Home() {
                                                 />
                                             </div>
                                         )
-                                    } else if (index == 2) {
+                                    } else if (index === 2) {
                                         return (
-                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''} `}>
+                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''} `}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -143,9 +143,9 @@ export default function Home() {
                                                 />
                                             </div>
                                         )
-                                    } else if (index == 3) {
+                                    } else if (index === 3) {
                                         return (
-                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''} `}>
+                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''} `}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -154,9 +154,9 @@ export default function Home() {
                                             </div>
                                         )
 
-                                    } else if (index == 4) {
+                                    } else if (index === 4) {
                                         return (
-                                            <div key={item.id} className={`gallery-item large-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''}`}>
+                                            <div key={item.id} className={`gallery-item large-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''}`}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -165,9 +165,9 @@ export default function Home() {
                                             </div>
                                         )
 
-                                    } else if (index == 5) {
+                                    } else if (index === 5) {
                                         return (
-                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''}`}>
+                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''}`}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -175,9 +175,9 @@ export default function Home() {
                                                 />
                                             </div>
                                         )
-                                    } else if (index == 6) {
+                                    } else if (index === 6) {
                                         return (
-                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item.title.length < 50 ? '2' : '3'} ${item.id % 2 ? '4' : ''}`}>
+                                            <div key={item.id} className={`gallery-item small-block masonry-item all ${item?.capacity === 2 ? 'capacity2' : item?.capacity === 3 ? "capacity3" : ''}  ${item.price < 2000000 ? 'lessthan' : ''}`}>
                                                 <Motel
                                                     title={item.title}
                                                     id={item.id}
@@ -190,10 +190,6 @@ export default function Home() {
                             }
 
                         </div>
-                    </div>
-                    {/* More Projects */}
-                    <div className="more-projects">
-                        <a href="projects-classic.html" className="projects">View All Projects</a>
                     </div>
                 </div>
             </section>
@@ -214,14 +210,16 @@ export default function Home() {
                                             <div className="news-block col-lg-4 col-md-6 col-sm-12" key={item.id}>
                                                 <div className="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
                                                     <div className="image">
-                                                        <a href="blog-detail.html"><img src="images/resource/news-1.jpg" alt="" /></a>
+                                                        <Link to={`/review/${item.id}`}>
+                                                            <img src={`${item.thumbnail_image}`} alt="" />
+                                                        </Link>
                                                     </div>
                                                     <div className="lower-content">
-                                                        <ul className="post-meta">
-                                                            <li>By <span>Michale</span></li>
-                                                            <li>Modular Kitchen</li>
-                                                        </ul>
-                                                        <h3><a href="blog-detail.html">{item.title}</a></h3>
+                                                        <h3>
+                                                            <Link to={`/review/${item.id}`}>
+                                                                {item.title}
+                                                            </Link>
+                                                        </h3>
                                                         <Link to={`/review/${item.id}`} className="read-more" >
                                                             Read more <span className="icon flaticon-right-arrow-1" />
                                                         </Link>

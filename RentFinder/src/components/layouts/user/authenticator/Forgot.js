@@ -1,7 +1,70 @@
 import { Link } from "react-router-dom";
 
+import emailjs from '@emailjs/browser';
+import { useRef } from "react";
+import md5 from "md5";
+import { toast } from "react-hot-toast";
 
 export default function Forgot() {
+    const form = useRef();
+
+    const code = useRef()
+    const name = useRef()
+    const email = useRef()
+
+    const renderNewpassword = () => {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 6; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    }
+
+    const sendEmail = (e) => {
+        e.preventDefault(); // prevents the page from reloading when you hit “Send”
+
+        fetch(`http://localhost:9999/accounts?email=${email.current.value}`, {
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.length !== 0) {
+                    console.log(data)
+                    const password = renderNewpassword()
+                    code.current.value = password
+                    name.current.value = data[0].name
+                    emailjs.sendForm('service_iv3n4xs', 'template_fvm8lxd', form.current, 'EinHZve03Gsq1jKN0')
+                        .then((result) => {
+                            const newData = {
+                                ...data[0],
+                                password: md5(password)
+                            }
+
+                            console.log(newData)
+
+                            fetch(`http://localhost:9999/accounts/${newData.id}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                },
+                                body: JSON.stringify(newData)
+                            })
+                                .then(() => {
+                                    toast.success('Check Your Email To Take New Password')
+                                })
+                        })
+                        .catch(error => {
+                            // show the user an error
+                            toast.error('Something wrong! try later')
+                        })
+                } else {
+                    toast.error('Your Email No Have In Database')
+                }
+            })
+    };
+
     return (
         <>
             {/*Page Title*/}
@@ -30,17 +93,17 @@ export default function Forgot() {
                                 {/* Contact Form */}
                                 <div className="contact-form">
                                     {/*Contact Form*/}
-                                    <form method="post" action="" id="contact-form">
+                                    <form ref={form} onSubmit={sendEmail}>
                                         <div className="row clearfix">
-                                            <div className="form-group col-lg-6 col-md-6 col-sm-12">
-                                                <input type="email" name="email" placeholder="Your Email" required />
-                                            </div>
-                                            <div className="form-group col-lg-6 col-md-6 col-sm-12">
-                                                <input type="text" name="code" placeholder="Code Verify" required />
-                                            </div>
-
                                             <div className="form-group col-lg-12 col-md-12 col-sm-12">
-                                                <button className="theme-btn btn-style-one" type="submit" name="submit-form"><span className="txt">Login</span></button>
+                                                <input type="email" name="user_email" ref={email} placeholder="Your Email" required />
+                                                <input type="email" name="user_name" ref={name} hidden />
+                                                <input type="email" name="message" ref={code} placeholder="Your Email" hidden />
+                                            </div>
+                                            <div className="form-group col-lg-12 col-md-12 col-sm-6">
+                                                <button className="theme-btn btn-style-one" type="submit" name="submit-form">
+                                                    <span className="txt">Reset</span>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

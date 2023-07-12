@@ -26,8 +26,8 @@ export default function MotelDetail() {
                                                 <div className="row clearfix">
                                                     <div className="column col-lg-4 col-md-4 col-sm-12">
                                                         {
-                                                            motel?.images?.map(item => (
-                                                                <div className="image" key={item.id}>
+                                                            motel?.images?.map((item, index) => (
+                                                                <div className="image" key={index}>
                                                                     <img src={item.url} alt="" />
                                                                 </div>
                                                             ))

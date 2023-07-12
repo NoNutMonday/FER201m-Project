@@ -1,0 +1,101 @@
+{
+  "role": [
+    {
+      "id": 1,
+      "name": "Admin"
+    },
+    {
+      "id": 2,
+      "name": "User"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "name": "The Admin",
+      "userName": "theadmin",
+      "password": "7fa99fd8041ad6392461a7376f4f316b",
+      "email": "nonutmonday@gmail.com",
+      "phone": "0123456789",
+      "address": "Hà Nội",
+      "role": 1,
+      "status": 1
+    },
+    {
+      "id": 2,
+      "name": "Trinh Phong",
+      "userName": "trinhphong",
+      "password": "7fa99fd8041ad6392461a7376f4f316b",
+      "email": "trinhphong27042003@gmail.com",
+      "phone": "0123456789",
+      "address": "Lai Châu",
+      "role": 2,
+      "status": 1
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "aid": 1,
+      "mid": 1,
+      "title": "Great service!",
+      "description": "okila",
+      "thumbnail_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF29NoddKVA0t8iScPgcyq-EWCwnpLl-pnIL12S-n5&s",
+      "createDate": "2023/07/01",
+      "published": true
+    }
+  ],
+  "motels": [
+    {
+      "id": 1,
+      "ownerID": 2,
+      "name": "Trọ Tuấn Nga",
+      "address": "Thôn 3 Thạch Hòa",
+      "capacity": 2,
+      "price": 1700000,
+      "quantity": 10,
+      "note": "trọ giờ giấc thoải mái nha",
+      "published": true,
+      "createDate": "2023/07/01",
+      "images": [
+        {
+          "url": "https://xaydungthuanphuoc.com/wp-content/uploads/2022/09/mau-phong-tro-co-gac-lung-dep2022-5.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "ownerID": 2,
+      "name": "Trọ Tuấn Nga",
+      "address": "Thôn 3 Thạch Hòa",
+      "capacity": 3,
+      "price": 2100000,
+      "quantity": 10,
+      "note": "trọ giờ giấc thoải mái nha",
+      "published": true,
+      "createDate": "2023/07/01",
+      "images": [
+        {
+          "url": "https://angcovat.vn/imagesdata/KN208117/thiet-ke-phong-tro-khep-kin-co-gac-lung.jpg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "ownerID": 2,
+      "name": "Trọ Tuấn Nga",
+      "address": "Thôn 3 Thạch Hòa",
+      "capacity": 1,
+      "price": 2000000,
+      "quantity": 10,
+      "note": "trọ giờ giấc thoải mái nha",
+      "published": true,
+      "createDate": "2023/07/01",
+      "images": [
+        {
+          "url": "https://bandon.vn/resize/1000x700/a-c/zc-1/f/uploads/posts/thiet-ke-nha-tro-dep-2020-bandon-0.jpg"
+        }
+      ]
+    }
+  ]
+}
